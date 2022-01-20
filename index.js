@@ -39,9 +39,7 @@ const storage = multer.diskStorage({
   },
 
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + "-" + file.originalname);
-    // console.log(file.fieldname +" "+file.originalname+ " "+file.encoding )
+    cb(null, req.body.name);
   },
 });
 
@@ -49,7 +47,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-app.post("/api/upload", upload.single("uploaded_file"), function (req, res) {
+app.post("/api/upload", upload.single("file"), function (req, res) {
   // req.file is the name of your file in the form above, here 'uploaded_file'
   // req.body will hold the text fields, if there were any
   //  console.log(req.file, req.body)
